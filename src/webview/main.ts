@@ -65,7 +65,7 @@ async function handle(msg: HostToWebview): Promise<void> {
   if (!plugin || !nav) return;
   switch (msg.type) {
     case 'load':
-      await loadStructure(msg.data, msg.format, msg.backgroundColor);
+      await loadStructure(msg.data, msg.format, msg.isBinary, msg.backgroundColor);
       break;
     case 'folder':
       nav.setFolder(msg.total, msg.index, msg.filename, msg.navEnabled);
@@ -79,6 +79,7 @@ async function handle(msg: HostToWebview): Promise<void> {
 async function loadStructure(
   data: string,
   format: StructureFormat,
+  isBinary: boolean,
   background: string
 ): Promise<void> {
   if (!plugin) return;
@@ -87,11 +88,22 @@ async function loadStructure(
   // A newer load may have superseded this one while clearing.
   if (token !== loadToken) return;
 
-  const raw = await plugin.builders.data.rawData({ data });
+  // Binary payloads (e.g. .bcif) arrive base64-encoded; decode to a Uint8Array,
+  // which Mol* treats as binary data. Text formats pass straight through.
+  const raw = isBinary
+    ? await plugin.builders.data.rawData({ data: base64ToBytes(data) })
+    : await plugin.builders.data.rawData({ data });
   const trajectory = await plugin.builders.structure.parseTrajectory(raw, format);
   await plugin.builders.structure.hierarchy.applyPreset(trajectory, 'default');
 
   applyBackground(background);
+}
+
+function base64ToBytes(b64: string): Uint8Array {
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return bytes;
 }
 
 function applyBackground(hex: string): void {

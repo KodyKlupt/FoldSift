@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { buildWebviewHtml } from './webviewHtml';
-import { formatFor, basename } from './folderScan';
+import { basename } from './folderScan';
+import { decodeStructure } from './structureData';
 import { HostToWebview } from './messages';
 
 /**
@@ -44,11 +45,13 @@ async function loadInto(
 ): Promise<void> {
   const bytes = await vscode.workspace.fs.readFile(uri);
   const cfg = vscode.workspace.getConfiguration('foldsift');
+  const decoded = decodeStructure(bytes, basename(uri.path));
   post({
     type: 'load',
     filename: basename(uri.path),
-    format: formatFor(uri.path),
-    data: Buffer.from(bytes).toString('utf8'),
+    format: decoded.format,
+    data: decoded.data,
+    isBinary: decoded.isBinary,
     backgroundColor: cfg.get<string>('backgroundColor', '#1e1e1e')
   });
 }

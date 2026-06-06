@@ -1,5 +1,4 @@
 import * as vscode from 'vscode';
-import type { StructureFormat } from './messages';
 
 export const STRUCTURE_EXTS = [
   'pdb',
@@ -12,10 +11,12 @@ export const STRUCTURE_EXTS = [
   'sdf',
   'sd',
   'mol',
-  'xyz'
+  'xyz',
+  'bcif'
 ];
 
-const EXT_RE = /\.(pdb|cif|mmcif|ent|pdbqt|gro|mol2|sdf|sd|mol|xyz)$/i;
+// Any structure extension, optionally gzip-compressed (e.g. `model.pdb.gz`).
+const EXT_RE = /\.(pdb|cif|mmcif|ent|pdbqt|gro|mol2|sdf|sd|mol|xyz|bcif)(\.gz)?$/i;
 
 export function isStructureFile(name: string): boolean {
   return EXT_RE.test(name);
@@ -92,30 +93,4 @@ async function collectFromDir(
 export function basename(p: string): string {
   const i = p.lastIndexOf('/');
   return i >= 0 ? p.slice(i + 1) : p;
-}
-
-/** Pick the Mol* trajectory format from a filename's extension. */
-export function formatFor(name: string): StructureFormat {
-  const ext = name.slice(name.lastIndexOf('.') + 1).toLowerCase();
-  switch (ext) {
-    case 'cif':
-    case 'mmcif':
-      return 'mmcif';
-    case 'pdbqt':
-      return 'pdbqt';
-    case 'gro':
-      return 'gro';
-    case 'mol2':
-      return 'mol2';
-    case 'sdf':
-    case 'sd':
-      return 'sdf';
-    case 'mol':
-      return 'mol';
-    case 'xyz':
-      return 'xyz';
-    // .pdb, .ent and anything else fall back to PDB.
-    default:
-      return 'pdb';
-  }
 }

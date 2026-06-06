@@ -17,8 +17,10 @@ export type HostToWebview =
       type: 'load';
       filename: string;
       format: StructureFormat;
-      /** Raw text content of the structure file. */
+      /** Structure payload: base64 when `isBinary`, otherwise raw UTF-8 text. */
       data: string;
+      /** True when `data` is a base64-encoded binary payload (e.g. `.bcif`). */
+      isBinary: boolean;
       backgroundColor: string;
     }
   | {

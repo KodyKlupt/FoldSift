@@ -36,6 +36,10 @@ measurements, and screenshot/camera controls for free.
 | `.sdf`, `.sd` | SDF |
 | `.mol` | MDL MOL |
 | `.xyz` | XYZ |
+| `.bcif` | BinaryCIF |
+
+Any of the above may also be gzip-compressed (e.g. `model.pdb.gz`, `1abc.bcif.gz`) —
+FoldSift decompresses them transparently.
 
 ## Usage
 
@@ -112,9 +116,10 @@ Shortcuts are ignored while the Comment box is focused, so you can type freely.
   nucleotides to lowercase.
 - Mol\* runs without web workers in the webview — fine for typical designs, slower
   on very large assemblies.
-- Not yet supported: binary mmCIF (`.bcif`), `.gz` decompression,
-  multi-model/trajectory animation, saving Mol\* sessions, and appending across
-  separate curation sessions.
+- Binary formats (`.bcif`) render in the viewer but don't get sequence/count
+  extraction in the curation CSV (those columns are left blank).
+- Not yet supported: multi-model/trajectory animation, saving Mol\* sessions, and
+  appending across separate curation sessions.
 
 ## Development
 
@@ -126,6 +131,7 @@ npm run compile      # builds dist/extension.js + dist/webview.js
 
 - `npm run watch` — rebuild on change
 - `npm run typecheck` — `tsc --noEmit`
+- `npm test` — decode tests (gzip/BinaryCIF round-trip + Mol\* parse)
 
 ## Credits
 
