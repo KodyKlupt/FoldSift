@@ -11,6 +11,8 @@ measurements, and screenshot/camera controls for free.
 > 💡 Structure files still open as **plain text by default**, so you can read the
 > raw coordinates whenever you want. The 3D viewer is one right-click away.
 
+![FoldSift curation bar — cycle structures, Keep with a hotkey, and add per-structure comments](media/curation-bar.png)
+
 
 ## Features
 
