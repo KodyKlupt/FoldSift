@@ -1,0 +1,123 @@
+{
+  "name": "foldsift",
+  "displayName": "FoldSift",
+  "description": "A lite protein viewer and curation tool for protein designers. Cycle through PDB/CIF structures and triage the best ones to a CSV.",
+  "version": "0.1.0",
+  "publisher": "foldsift",
+  "license": "MIT",
+  "author": "Kody Klupt",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Visualization",
+    "Data Science"
+  ],
+  "keywords": [
+    "protein",
+    "pdb",
+    "cif",
+    "mmcif",
+    "molecular",
+    "structure",
+    "molstar",
+    "bioinformatics"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "foldsift.structure",
+        "displayName": "FoldSift Structure Viewer",
+        "selector": [
+          { "filenamePattern": "*.pdb" },
+          { "filenamePattern": "*.cif" },
+          { "filenamePattern": "*.mmcif" },
+          { "filenamePattern": "*.ent" },
+          { "filenamePattern": "*.pdbqt" },
+          { "filenamePattern": "*.gro" },
+          { "filenamePattern": "*.mol2" },
+          { "filenamePattern": "*.sdf" },
+          { "filenamePattern": "*.sd" },
+          { "filenamePattern": "*.mol" },
+          { "filenamePattern": "*.xyz" }
+        ],
+        "priority": "option"
+      }
+    ],
+    "commands": [
+      {
+        "command": "foldsift.viewStructure",
+        "title": "FoldSift: View Structure",
+        "category": "FoldSift"
+      },
+      {
+        "command": "foldsift.viewFolder",
+        "title": "FoldSift: View Folder (cycle structures)",
+        "category": "FoldSift"
+      },
+      {
+        "command": "foldsift.curateStructures",
+        "title": "FoldSift: Curate Structures",
+        "category": "FoldSift"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "foldsift.viewStructure",
+          "when": "resourceExtname =~ /\\.(pdb|cif|mmcif|ent|pdbqt|gro|mol2|sdf|sd|mol|xyz)$/i",
+          "group": "navigation@10"
+        },
+        {
+          "command": "foldsift.viewFolder",
+          "when": "explorerResourceIsFolder",
+          "group": "navigation@10"
+        },
+        {
+          "command": "foldsift.curateStructures",
+          "when": "explorerResourceIsFolder",
+          "group": "navigation@11"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "FoldSift",
+      "properties": {
+        "foldsift.recursiveFolderScan": {
+          "type": "boolean",
+          "default": false,
+          "description": "When scanning a folder, also include structure files in subfolders."
+        },
+        "foldsift.backgroundColor": {
+          "type": "string",
+          "default": "#1e1e1e",
+          "description": "Background color of the 3D viewport (hex)."
+        },
+        "foldsift.keepHotkey": {
+          "type": "string",
+          "default": "s",
+          "description": "Single key used to mark (Keep) the current structure during a curation session."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "vscode:prepublish": "node esbuild.mjs --production",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.20.0",
+    "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "molstar": "^4.5.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
