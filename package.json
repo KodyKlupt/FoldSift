@@ -2,7 +2,7 @@
   "name": "foldsift",
   "displayName": "FoldSift",
   "description": "A lite protein viewer and curation tool for protein designers. Cycle through PDB/CIF structures and triage the best ones to a CSV.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "KodyKlupt",
   "license": "MIT",
   "author": "Kody Klupt",
@@ -39,19 +39,45 @@
         "viewType": "foldsift.structure",
         "displayName": "FoldSift Structure Viewer",
         "selector": [
-          { "filenamePattern": "*.pdb" },
-          { "filenamePattern": "*.cif" },
-          { "filenamePattern": "*.mmcif" },
-          { "filenamePattern": "*.ent" },
-          { "filenamePattern": "*.pdbqt" },
-          { "filenamePattern": "*.gro" },
-          { "filenamePattern": "*.mol2" },
-          { "filenamePattern": "*.sdf" },
-          { "filenamePattern": "*.sd" },
-          { "filenamePattern": "*.mol" },
-          { "filenamePattern": "*.xyz" },
-          { "filenamePattern": "*.bcif" },
-          { "filenamePattern": "*.{pdb,ent,cif,mmcif,pdbqt,gro,mol2,sdf,sd,mol,xyz,bcif}.gz" }
+          {
+            "filenamePattern": "*.pdb"
+          },
+          {
+            "filenamePattern": "*.cif"
+          },
+          {
+            "filenamePattern": "*.mmcif"
+          },
+          {
+            "filenamePattern": "*.ent"
+          },
+          {
+            "filenamePattern": "*.pdbqt"
+          },
+          {
+            "filenamePattern": "*.gro"
+          },
+          {
+            "filenamePattern": "*.mol2"
+          },
+          {
+            "filenamePattern": "*.sdf"
+          },
+          {
+            "filenamePattern": "*.sd"
+          },
+          {
+            "filenamePattern": "*.mol"
+          },
+          {
+            "filenamePattern": "*.xyz"
+          },
+          {
+            "filenamePattern": "*.bcif"
+          },
+          {
+            "filenamePattern": "*.{pdb,ent,cif,mmcif,pdbqt,gro,mol2,sdf,sd,mol,xyz,bcif}.gz"
+          }
         ],
         "priority": "option"
       }
