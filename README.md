@@ -1,5 +1,8 @@
 # FoldSift
 
+[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/KodyKlupt.foldsift?label=Marketplace&logo=visualstudiocode)](https://marketplace.visualstudio.com/items?itemName=KodyKlupt.foldsift)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 **A lightweight protein structure viewer and curation tool for VS Code.**
 
 FoldSift lets protein designers preview molecular structures inline, cycle through
@@ -13,6 +16,18 @@ measurements, and screenshot/camera controls for free.
 
 ![FoldSift curation bar — cycle structures, Keep with a hotkey, and add per-structure comments](media/curation-bar.png)
 
+## Install
+
+1. Install **FoldSift** from the
+   [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=KodyKlupt.foldsift)
+   — or open the Extensions panel (`Cmd/Ctrl+Shift+X`), search **FoldSift**, and click **Install**.
+2. **Right-click** a structure file (or a folder of them) in the Explorer and pick a
+   **FoldSift** option:
+   - **FoldSift: View Structure** — open one structure in the 3D viewer.
+   - **FoldSift: View Folder** — cycle through every structure in a folder.
+   - **FoldSift: Curate Structures** — cycle and triage keepers into a CSV.
+
+That's it — no setup or external tools required.
 
 ## Features
 
@@ -112,28 +127,12 @@ Shortcuts are ignored while the Comment box is focused, so you can type freely.
 
 - VS Code `1.85.0` or newer.
 
-## Known limitations
+## Source code & contributing
 
-- Sequence/counts come from atom records; non-standard residues map to `X` and
-  nucleotides to lowercase.
-- Mol\* runs without web workers in the webview — fine for typical designs, slower
-  on very large assemblies.
-- Binary formats (`.bcif`) render in the viewer but don't get sequence/count
-  extraction in the curation CSV (those columns are left blank).
-- Not yet supported: multi-model/trajectory animation, saving Mol\* sessions, and
-  appending across separate curation sessions.
-
-## Development
-
-```bash
-npm install
-npm run compile      # builds dist/extension.js + dist/webview.js
-# then press F5 in VS Code to launch the Extension Development Host
-```
-
-- `npm run watch` — rebuild on change
-- `npm run typecheck` — `tsc --noEmit`
-- `npm test` — decode tests (gzip/BinaryCIF round-trip + Mol\* parse)
+FoldSift is open source (MIT). The code lives at
+**[github.com/KodyKlupt/FoldSift](https://github.com/KodyKlupt/FoldSift)** — issues
+and pull requests are welcome. To build it locally: `npm install`, `npm run compile`,
+then press `F5` in VS Code to launch an Extension Development Host.
 
 ## Credits
 
